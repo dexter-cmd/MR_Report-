@@ -24,7 +24,6 @@ CumulativeTotalnewcases numeric,
 Insert into #USnewcases
 Select location, date, new_cases
 , SUM(CONVERT(int,new_cases)) OVER (Partition by Location Order by location, Date) as Cumulativetotalnewcases
---, (RollingPeopleVaccinated/population)*100
 From MRReport..['owid-covid-data$']
 Where location Like  'United States'
 order by date ASC
@@ -35,6 +34,5 @@ order by date ASC
 Create view USnewcases as 
 Select location, date, new_cases
 , SUM(CONVERT(int,new_cases)) OVER (Partition by Location Order by location, Date) as Cumulativetotalnewcases
---, (RollingPeopleVaccinated/population)*100
 From MRReport..['owid-covid-data$']
 Where location Like  'United States'
