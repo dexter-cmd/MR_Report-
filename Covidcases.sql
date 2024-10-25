@@ -6,12 +6,14 @@ From MRReport..['owid-covid-data$']
 Where location Like  'United States'
 
 
+  
 Select location, date, new_cases
 , SUM(CONVERT(int,new_cases)) OVER (Partition by Location Order by location, Date) as Cumulativetotalnewcases
 From MRReport..['owid-covid-data$']
 Where location Like  'United States'
 order by date ASC
 
+  
 Create Table #USnewcases
 (
 Location nvarchar(255),
@@ -20,6 +22,7 @@ new_cases numeric,
 CumulativeTotalnewcases numeric,
 )
 
+  
 Insert into #USnewcases
 Select location, date, new_cases
 , SUM(CONVERT(int,new_cases)) OVER (Partition by Location Order by location, Date) as Cumulativetotalnewcases
